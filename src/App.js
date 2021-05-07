@@ -27,13 +27,22 @@ class App extends React.Component {
       usuarioMensagem: this.state.inputNome,
       mensagem: this.state.inputMensagem
      }
-
+     if( this.state.inputMensagem !== ""  && this.state.inputNome !== ""){ // Se um dos input está vazio, se sim, não envia mensagem
      this.setState({ //arrayMensagem recebe uma cópia do ultimo array com a nova mensagem
        arrayMensagem:[...this.state.arrayMensagem, novaMensagem],
        inputMensagem:  ""
      })
+    }
   }
   
+
+  pressEnter = (event) =>{
+    if(event.key === 'Enter'){ //Verifica se apertou Enter
+     this.enviarMensagem(event) //Envia mensagem apertando enter no input de mensagem
+    }
+   }
+  
+
 
 
 
@@ -61,6 +70,7 @@ class App extends React.Component {
         placeholder = {"Enviar Mensagem"}
         value = {this.state.inputMensagem}
         onChange = {this.handleMensagem}
+        onKeyPress = {this.pressEnter}
         />
         <button onClick = {this.enviarMensagem} >Enviar Mensagem</button>
       </div>
