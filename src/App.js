@@ -6,27 +6,30 @@ import styled from 'styled-components'
   height: 100vh;
   box-sizing: border-box;
   margin: auto;
-  width: 800px;
+  width: 600px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   `
   const MensagemContainer = styled.div`
+    box-sizing: border-box;
     flex-grow: 1;
-    padding: 3vw 5vh;
+    padding: 16px;
     display: flex;
     flex-direction: column-reverse;
+    p {
+      margin: 4px;
+    }
   `
   const InputContainer = styled.div`
     display: flex;
-    padding: 1.5vw;
   `
   const NomeInput = styled.input`
     width: 100px;
+    padding: 4px;
   `
   const MensagemInput = styled.input`
     flex-grow: 1;
-    width:24vw;
+    padding-left: 4px;
   `
 
 class App extends React.Component {
@@ -53,9 +56,8 @@ class App extends React.Component {
      }
      if( this.state.inputMensagemValue !== ""  && this.state.inputNomeValue !== ""){ // Se um dos input está vazio, se sim, não envia mensagem
      this.setState({ //arrayMensagem recebe uma cópia do ultimo array com a nova mensagem
-       arrayMensagem:[...this.state.arrayMensagem, novaMensagem],
+       arrayMensagem:[novaMensagem, ...this.state.arrayMensagem],
        inputMensagemValue:  "",
-       inputNomeValue: ''
      })
     }
   }
@@ -65,14 +67,19 @@ class App extends React.Component {
      this.enviarMensagem(event) //Envia mensagem apertando enter no input de mensagem
     }
    }
+
+   deletarMensagem = (index) => {
+     const novoArrayMensagem = [...this.state.arrayMensagem]
+     novoArrayMensagem.splice(index, 1);
+     this.setState({arrayMensagem: novoArrayMensagem})
+   }
   
   render() {
 
     const mensagens = this.state.arrayMensagem.map((msg,index) =>{ //transformo o array em um componente
       return(
-        <div key = {index}>
-          <h1>{msg.usuarioMensagem}</h1>
-          <p>{msg.mensagem}</p>
+        <div key = {index} onDoubleClick={ () => this.deletarMensagem(index)}>
+          <p><strong>{msg.usuarioMensagem}</strong>: {msg.mensagem}</p>
 
         </div>
       )
@@ -80,7 +87,6 @@ class App extends React.Component {
 
     return(
       <AppContainer>
-
         <MensagemContainer>
         {mensagens}
         </MensagemContainer>
