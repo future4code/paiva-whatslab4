@@ -19,17 +19,21 @@ import styled from 'styled-components'
     p {
       margin: 4px;
     }
+    button {
+      margin-left: 25px;
+      width: 3vw;
+    }
   `
   const InputContainer = styled.div`
     display: flex;
+    padding: 1.5vw;
+    height: 3vh;
   `
   const NomeInput = styled.input`
     width: 100px;
-    padding: 4px;
   `
   const MensagemInput = styled.input`
     flex-grow: 1;
-    padding-left: 4px;
   `
 
 class App extends React.Component {
@@ -38,7 +42,6 @@ class App extends React.Component {
     arrayMensagem:[],
     inputNomeValue:"",
     inputMensagemValue: ""
-
   }
 
   handleNome = (event) => { //pega o nome do usuario
@@ -78,8 +81,13 @@ class App extends React.Component {
 
     const mensagens = this.state.arrayMensagem.map((msg,index) =>{ //transformo o array em um componente
       return(
-        <div key = {index} onDoubleClick={ () => this.deletarMensagem(index)}>
-          <p><strong>{msg.usuarioMensagem}</strong>: {msg.mensagem}</p>
+        <div key = {index}> 
+          <p>
+            <strong>{msg.usuarioMensagem}</strong>:{msg.mensagem}
+            <button onDoubleClick=
+            {()=>this.deletarMensagem(index)}>Apagar
+            </button>
+          </p>
 
         </div>
       )
