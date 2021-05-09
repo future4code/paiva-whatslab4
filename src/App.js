@@ -9,6 +9,7 @@ import styled from 'styled-components'
   width: 600px;
   display: flex;
   flex-direction: column;
+  background-color: #ECE5DD;
   `
   const MensagemContainer = styled.div`
     box-sizing: border-box;
@@ -19,10 +20,7 @@ import styled from 'styled-components'
     p {
       margin: 4px;
     }
-    button {
-      margin-left: 25px;
-      width: 3vw;
-    }
+ 
   `
   const InputContainer = styled.div`
     display: flex;
@@ -31,11 +29,65 @@ import styled from 'styled-components'
   `
   const NomeInput = styled.input`
     width: 100px;
+    margin-right: 10px;
   `
   const MensagemInput = styled.input`
     flex-grow: 1;
+    margin-right: 10px;
+
   `
 
+  const MensagemEu = styled.div`
+    display:flex;
+    justify-content: flex-end;
+    margin: 5px;
+  `
+
+  const TextoMsgEU = styled.div`
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    width: 40%;
+    word-break: break-all;
+    background-color: #dcf8c6;
+    padding: 1rem;
+  `
+  
+  const MensagemRecebida = styled.div`
+    display:flex;
+    justify-content: flex-start;
+    margin: 5px;
+  `
+
+  const TextoRecebido = styled.div`
+    display:flex;
+    align-items:center;
+    width: 40%;
+    word-break: break-all;
+    background-color: #25D366;
+    padding: 1rem;
+
+    strong{
+      word-break: normal
+    }
+  `
+  
+
+  const ApagarBtn = styled.button`
+    margin: 0;
+    padding: 0;
+    width: auto;
+    font-size: medium;
+    margin-left: 10px;
+    margin-bottom: 36px;
+    border: none;
+    background: none;
+
+    &:hover{
+      cursor: pointer;
+      color: red;
+      }
+  `
 class App extends React.Component {
 
   state = {
@@ -80,18 +132,35 @@ class App extends React.Component {
   render() {
 
     const mensagens = this.state.arrayMensagem.map((msg,index) =>{ //transformo o array em um componente
-      return(
-        <div key = {index}> 
-          <p>
-            <strong>{msg.usuarioMensagem}</strong>:{msg.mensagem}
-            <button onDoubleClick=
-            {()=>this.deletarMensagem(index)}>Apagar
-            </button>
-          </p>
+        if(msg.usuarioMensagem.toLowerCase() === "eu"){ // Se usuario = eu,  mensagem recebe MensagemEu 
+          return(<div key = {index}> 
+            <MensagemEu>
+              <TextoMsgEU>{msg.mensagem}</TextoMsgEU>
+              <ApagarBtn onDoubleClick=
+              {()=>this.deletarMensagem(index)}>x
+              </ApagarBtn>
+            </MensagemEu>
 
         </div>
-      )
-    });
+          )
+        }
+        return(<div key = {index}> 
+            <MensagemRecebida>
+              <TextoRecebido>
+
+              <strong>{msg.usuarioMensagem}</strong>
+              :
+              <p>{msg.mensagem}</p>
+
+              </TextoRecebido>
+              <ApagarBtn onDoubleClick=
+              {()=>this.deletarMensagem(index)}>x
+              </ApagarBtn>
+            </MensagemRecebida>
+
+          </div>
+        )
+      });
 
     return(
       <AppContainer>
