@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
  const AppContainer = styled.div`
   border: 1px solid green;
-  height: 100vh;
+  min-height: 100vh;
   box-sizing: border-box;
   margin: auto;
   width: 600px;
@@ -51,6 +51,10 @@ import styled from 'styled-components'
     word-break: break-all;
     background-color: #dcf8c6;
     padding: 1rem;
+    border-radius: 10px;
+    font-weight: 450;
+    line-height: 1.3;
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.3);
   `
   
   const MensagemRecebida = styled.div`
@@ -64,11 +68,19 @@ import styled from 'styled-components'
     align-items:center;
     width: 40%;
     word-break: break-all;
-    background-color: #25D366;
+    background-color: #ffffff;
     padding: 1rem;
+    border-radius: 10px;
+    font-weight: 450;
+    line-height: 1.3;
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.3);
 
     strong{
-      word-break: normal
+    color: #9AAC8C;
+    font-size: 0.8em;
+    font-weight: 600;
+    margin-bottom: 0.2em;
+    line-height: 1.3;
     }
   `
   
@@ -148,9 +160,7 @@ class App extends React.Component {
             <MensagemRecebida>
               <TextoRecebido>
 
-              <strong>{msg.usuarioMensagem}</strong>
-              :
-              <p>{msg.mensagem}</p>
+              <p><strong>{msg.usuarioMensagem}</strong><br/>{msg.mensagem}</p>
 
               </TextoRecebido>
               <ApagarBtn onDoubleClick=
